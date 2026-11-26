@@ -5,9 +5,16 @@
 package com.stockscan.model;
 
 /**
+ * Tipo reservado para representar a un operario del almacén.
+ * Los datos de identificación y de turno están pendientes de definición.
  *
  * @author alvarolopez
  */
 public class Operario {
-    
+
+    /**
+     * Crea una instancia sin datos de operario.
+     */
+    public Operario() {
+    }
 }

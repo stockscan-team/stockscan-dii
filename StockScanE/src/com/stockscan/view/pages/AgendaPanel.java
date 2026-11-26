@@ -1,20 +1,128 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.stockscan.view.pages;
 
+import com.stockscan.controller.FeedbackController;
+import com.stockscan.view.components.FeedbackStockScan;
+
 /**
+ * Ventana de agenda y turnos del almacén.
+ * Presenta un calendario semanal con los turnos de ejemplo.
  *
  * @author alvarolopez
+ * @serial exclude
  */
 public class AgendaPanel extends javax.swing.JFrame {
 
+    /** Botón de la agenda resaltado en la vista. */
+    private javax.swing.JButton botonAgendaActivo;
+
     /**
-     * Creates new form AgendaPanel
+     * Prepara la agenda y selecciona visualmente el botón Hoy.
+     *
+     * @throws java.awt.HeadlessException
+     * si el entorno no admite ventanas
      */
     public AgendaPanel() {
         initComponents();
+        botonAgendaActivo = btnHoy;
+        configurarEfectosVisuales();
+    }
+
+    /**
+     * Configura los estados visuales y las notificaciones.
+     * Conserva la selección de agenda y las acciones existentes.
+     * La selección visual no modifica la semana de ejemplo.
+     */
+    private void configurarEfectosVisuales() {
+        FeedbackStockScan feedback = new FeedbackStockScan();
+
+        feedback.addStockScanListener(
+                new FeedbackController()
+        );
+
+        final javax.swing.JButton[] botonesAgenda = {
+            btnAnterior,
+            btnHoy,
+            btnSiguiente
+        };
+
+        feedback.instalar(
+                btnAnterior,
+                "AgendaPanel.btnAnterior",
+                () -> btnAnterior == botonAgendaActivo
+        );
+
+        feedback.instalar(
+                btnHoy,
+                "AgendaPanel.btnHoy",
+                () -> btnHoy == botonAgendaActivo
+        );
+
+        feedback.instalar(
+                btnSiguiente,
+                "AgendaPanel.btnSiguiente",
+                () -> btnSiguiente == botonAgendaActivo
+        );
+
+        for (final javax.swing.JButton btnAgenda : botonesAgenda) {
+            btnAgenda.addActionListener(evento -> {
+                botonAgendaActivo = btnAgenda;
+                feedback.refrescar(botonesAgenda);
+            });
+        }
+
+        feedback.instalar(
+                btnNavAgenda,
+                "AgendaPanel.btnNavAgenda",
+                null
+        );
+
+        feedback.instalar(
+                btnNavAlertas,
+                "AgendaPanel.btnNavAlertas",
+                null
+        );
+
+        feedback.instalar(
+                btnNavChat,
+                "AgendaPanel.btnNavChat",
+                null
+        );
+
+        feedback.instalar(
+                btnNavDashboard,
+                "AgendaPanel.btnNavDashboard",
+                null
+        );
+
+        feedback.instalar(
+                btnNavEquipo,
+                "AgendaPanel.btnNavEquipo",
+                null
+        );
+
+        feedback.instalar(
+                btnNavEtiquetas,
+                "AgendaPanel.btnNavEtiquetas",
+                null
+        );
+
+        feedback.instalar(
+                btnNavMapa,
+                "AgendaPanel.btnNavMapa",
+                null
+        );
+
+        feedback.instalar(
+                btnNavStock,
+                "AgendaPanel.btnNavStock",
+                null
+        );
+
+        feedback.instalar(
+                btnNavTrazabilidad,
+                "AgendaPanel.btnNavTrazabilidad",
+                null
+        );
     }
 
     /**
@@ -25,6 +133,18 @@ public class AgendaPanel extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        scrollContenido = new javax.swing.JScrollPane();
+        panelContenido = new javax.swing.JPanel();
+        panelCabecera = new javax.swing.JPanel();
+        lblSeccion = new javax.swing.JLabel();
+        panelUsuario = new javax.swing.JPanel();
+        panelDatosUsuario = new javax.swing.JPanel();
+        panelNavChat = new javax.swing.JPanel();
+        panelNavAlertas = new javax.swing.JPanel();
+        panelMarca = new javax.swing.JPanel();
+        panelTurnos = new javax.swing.JPanel();
+        panelDias = new javax.swing.JPanel();
+        panelNavegacionAgenda = new javax.swing.JPanel();
 
         panelSidebar = new javax.swing.JPanel();
         lblLogoIconoTexto = new javax.swing.JLabel();
@@ -59,252 +179,33 @@ public class AgendaPanel extends javax.swing.JFrame {
         lblHeaderVie = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(32767, 32767));
-        setMinimumSize(new java.awt.Dimension(900, 600));
-
-        panelSidebar.setBackground(new java.awt.Color(18, 30, 43));
-        panelSidebar.setPreferredSize(new java.awt.Dimension(220, 600));
-
-        lblLogoIconoTexto.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        lblLogoIconoTexto.setForeground(new java.awt.Color(255, 255, 255));
         lblLogoIconoTexto.setText("StockScan");
-
-        lblLogoSubtitulo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
-        lblLogoSubtitulo.setForeground(new java.awt.Color(174, 174, 178));
         lblLogoSubtitulo.setText("Almacén Central");
-
-        btnNavDashboard.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavDashboard.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavDashboard.setText("📊 Dashboard");
-        btnNavDashboard.setBorderPainted(false);
-        btnNavDashboard.setContentAreaFilled(false);
-        btnNavDashboard.setFocusPainted(false);
-        btnNavDashboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavDashboard.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavMapa.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavMapa.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavMapa.setText("Mapa de almacén");
-        btnNavMapa.setBorderPainted(false);
-        btnNavMapa.setContentAreaFilled(false);
-        btnNavMapa.setFocusPainted(false);
-        btnNavMapa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavMapa.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavStock.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavStock.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavStock.setText("📦 Stock");
-        btnNavStock.setBorderPainted(false);
-        btnNavStock.setContentAreaFilled(false);
-        btnNavStock.setFocusPainted(false);
-        btnNavStock.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavStock.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavEtiquetas.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavEtiquetas.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavEtiquetas.setText("🏷️ Etiquetas");
-        btnNavEtiquetas.setBorderPainted(false);
-        btnNavEtiquetas.setContentAreaFilled(false);
-        btnNavEtiquetas.setFocusPainted(false);
-        btnNavEtiquetas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavEtiquetas.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavTrazabilidad.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavTrazabilidad.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavTrazabilidad.setText("📈 Trazabilidad");
-        btnNavTrazabilidad.setBorderPainted(false);
-        btnNavTrazabilidad.setContentAreaFilled(false);
-        btnNavTrazabilidad.setFocusPainted(false);
-        btnNavTrazabilidad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavTrazabilidad.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavAlertas.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavAlertas.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavAlertas.setText("Alertas");
-        btnNavAlertas.setBorderPainted(false);
-        btnNavAlertas.setContentAreaFilled(false);
-        btnNavAlertas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavAlertas.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavEquipo.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavEquipo.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavEquipo.setText("👥 Equipo");
-        btnNavEquipo.setBorderPainted(false);
-        btnNavEquipo.setContentAreaFilled(false);
-        btnNavEquipo.setFocusPainted(false);
-        btnNavEquipo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavEquipo.setPreferredSize(new java.awt.Dimension(200, 44));
         btnNavEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNavEquipoActionPerformed(evt);
             }
         });
-
-        btnNavAgenda.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavAgenda.setForeground(new java.awt.Color(27, 79, 114));
-        btnNavAgenda.setText("📅 Agenda");
-        btnNavAgenda.setBorderPainted(false);
         btnNavAgenda.setDefaultCapable(false);
-        btnNavAgenda.setFocusPainted(false);
-        btnNavAgenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavAgenda.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavChat.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavChat.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavChat.setText("💬 Chat");
-        btnNavChat.setBorderPainted(false);
-        btnNavChat.setContentAreaFilled(false);
-        btnNavChat.setFocusPainted(false);
-        btnNavChat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavChat.setPreferredSize(new java.awt.Dimension(200, 44));
         btnNavChat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNavChatActionPerformed(evt);
             }
         });
-
-        lblBadgeAlertas.setBackground(new java.awt.Color(231, 76, 60));
-        lblBadgeAlertas.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        lblBadgeAlertas.setForeground(new java.awt.Color(255, 255, 255));
         lblBadgeAlertas.setText("12");
-        lblBadgeAlertas.setOpaque(true);
-        lblBadgeAlertas.setPreferredSize(new java.awt.Dimension(22, 22));
-
-        lblBadgeChat.setBackground(new java.awt.Color(231, 76, 60));
-        lblBadgeChat.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblBadgeChat.setForeground(new java.awt.Color(255, 255, 255));
         lblBadgeChat.setText("3");
-        lblBadgeChat.setOpaque(true);
-        lblBadgeChat.setPreferredSize(new java.awt.Dimension(22, 22));
-
-        lblAvatar.setBackground(new java.awt.Color(243, 156, 18));
-        lblAvatar.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblAvatar.setForeground(new java.awt.Color(255, 255, 255));
         lblAvatar.setText("AR");
-        lblAvatar.setOpaque(true);
-        lblAvatar.setPreferredSize(new java.awt.Dimension(32, 32));
-
-        lblUsuarioNombre.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblUsuarioNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuarioNombre.setText("Ana Rodríguez");
-
-        lblUsuarioRol.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
-        lblUsuarioRol.setForeground(new java.awt.Color(174, 174, 178));
         lblUsuarioRol.setText("Admin");
-
-        javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
-        panelSidebar.setLayout(panelSidebarLayout);
-        panelSidebarLayout.setHorizontalGroup(
-            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSidebarLayout.createSequentialGroup()
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNavAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addGap(88, 88, 88)
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblLogoSubtitulo)
-                                .addComponent(lblLogoIconoTexto)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNavDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnNavMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNavStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnNavEtiquetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNavTrazabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(panelSidebarLayout.createSequentialGroup()
-                                    .addComponent(btnNavAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblBadgeAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnNavEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblUsuarioNombre)
-                                .addComponent(lblUsuarioRol)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnNavChat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(lblBadgeChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelSidebarLayout.setVerticalGroup(
-            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSidebarLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(lblLogoIconoTexto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLogoSubtitulo)
-                .addGap(18, 18, 18)
-                .addComponent(btnNavDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavEtiquetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavTrazabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNavAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBadgeAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNavChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBadgeChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSidebarLayout.createSequentialGroup()
-                        .addComponent(lblUsuarioNombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUsuarioRol)))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(28, 28, 30));
         jLabel1.setText("Agenda y Turnos");
-
-        lblSubtituloAgenda.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        lblSubtituloAgenda.setForeground(new java.awt.Color(110, 110, 115));
         lblSubtituloAgenda.setText("Semana 29 sep - 5 oct 2026");
 
         btnAnterior.setText("← Anterior");
-        btnAnterior.setContentAreaFilled(false);
-
-        btnHoy.setBackground(new java.awt.Color(212, 230, 241));
-        btnHoy.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        btnHoy.setForeground(new java.awt.Color(27, 79, 114));
         btnHoy.setText("Hoy");
 
         btnSiguiente.setText("Siguiente →");
-        btnSiguiente.setContentAreaFilled(false);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblHeaderOperario.setText("Operario");
-
-        panelHeaderLun.setBackground(new java.awt.Color(153, 204, 255));
-        panelHeaderLun.setForeground(new java.awt.Color(27, 79, 114));
         panelHeaderLun.setText("Lun 29");
 
         lblHeaderMar.setText("Mar 30");
@@ -318,98 +219,525 @@ public class AgendaPanel extends javax.swing.JFrame {
         lblHeaderDom.setText("Dom 5");
 
         lblHeaderVie.setText("Vie 3");
-
+        panelSidebar.setBackground(new java.awt.Color(18, 30, 43));
+        lblLogoIconoTexto.setFont(new java.awt.Font("SansSerif", 1, 23));
+        lblLogoIconoTexto.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogoSubtitulo.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblLogoSubtitulo.setForeground(new java.awt.Color(151, 174, 194));
+        btnNavDashboard.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavDashboard.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavDashboard.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavDashboard.setFocusPainted(true);
+        btnNavDashboard.setBorderPainted(false);
+        btnNavDashboard.setContentAreaFilled(true);
+        btnNavDashboard.setOpaque(true);
+        btnNavMapa.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavMapa.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavMapa.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavMapa.setFocusPainted(true);
+        btnNavMapa.setBorderPainted(false);
+        btnNavMapa.setContentAreaFilled(true);
+        btnNavMapa.setOpaque(true);
+        btnNavStock.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavStock.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavStock.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavStock.setFocusPainted(true);
+        btnNavStock.setBorderPainted(false);
+        btnNavStock.setContentAreaFilled(true);
+        btnNavStock.setOpaque(true);
+        btnNavEtiquetas.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavEtiquetas.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavEtiquetas.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavEtiquetas.setFocusPainted(true);
+        btnNavEtiquetas.setBorderPainted(false);
+        btnNavEtiquetas.setContentAreaFilled(true);
+        btnNavEtiquetas.setOpaque(true);
+        btnNavTrazabilidad.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavTrazabilidad.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavTrazabilidad.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavTrazabilidad.setFocusPainted(true);
+        btnNavTrazabilidad.setBorderPainted(false);
+        btnNavTrazabilidad.setContentAreaFilled(true);
+        btnNavTrazabilidad.setOpaque(true);
+        btnNavAlertas.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavAlertas.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavAlertas.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavAlertas.setFocusPainted(true);
+        btnNavAlertas.setBorderPainted(false);
+        btnNavAlertas.setContentAreaFilled(true);
+        btnNavAlertas.setOpaque(true);
+        btnNavEquipo.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavEquipo.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavEquipo.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavEquipo.setFocusPainted(true);
+        btnNavEquipo.setBorderPainted(false);
+        btnNavEquipo.setContentAreaFilled(true);
+        btnNavEquipo.setOpaque(true);
+        btnNavAgenda.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavAgenda.setForeground(new java.awt.Color(255, 255, 255));
+        btnNavAgenda.setBackground(new java.awt.Color(27, 79, 114));
+        btnNavAgenda.setFocusPainted(true);
+        btnNavAgenda.setBorderPainted(false);
+        btnNavAgenda.setContentAreaFilled(true);
+        btnNavAgenda.setOpaque(true);
+        btnNavChat.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavChat.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavChat.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavChat.setFocusPainted(true);
+        btnNavChat.setBorderPainted(false);
+        btnNavChat.setContentAreaFilled(true);
+        btnNavChat.setOpaque(true);
+        lblBadgeAlertas.setFont(new java.awt.Font("SansSerif", 1, 11));
+        lblBadgeAlertas.setForeground(new java.awt.Color(255, 255, 255));
+        lblBadgeChat.setFont(new java.awt.Font("SansSerif", 1, 11));
+        lblBadgeChat.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvatar.setFont(new java.awt.Font("SansSerif", 1, 13));
+        lblAvatar.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarioNombre.setFont(new java.awt.Font("SansSerif", 1, 13));
+        lblUsuarioNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarioRol.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblUsuarioRol.setForeground(new java.awt.Color(151, 174, 194));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 28));
+        jLabel1.setForeground(new java.awt.Color(27, 43, 60));
+        lblSubtituloAgenda.setFont(new java.awt.Font("SansSerif", 0, 13));
+        lblSubtituloAgenda.setForeground(new java.awt.Color(103, 119, 137));
+        btnAnterior.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnAnterior.setForeground(new java.awt.Color(27, 43, 60));
+        btnAnterior.setBackground(new java.awt.Color(255, 255, 255));
+        btnAnterior.setFocusPainted(true);
+        btnAnterior.setBorderPainted(false);
+        btnAnterior.setContentAreaFilled(true);
+        btnAnterior.setOpaque(true);
+        btnHoy.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnHoy.setForeground(new java.awt.Color(255, 255, 255));
+        btnHoy.setBackground(new java.awt.Color(27, 79, 114));
+        btnHoy.setFocusPainted(true);
+        btnHoy.setBorderPainted(false);
+        btnHoy.setContentAreaFilled(true);
+        btnHoy.setOpaque(true);
+        btnSiguiente.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnSiguiente.setForeground(new java.awt.Color(27, 43, 60));
+        btnSiguiente.setBackground(new java.awt.Color(255, 255, 255));
+        btnSiguiente.setFocusPainted(true);
+        btnSiguiente.setBorderPainted(false);
+        btnSiguiente.setContentAreaFilled(true);
+        btnSiguiente.setOpaque(true);
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        lblHeaderOperario.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderOperario.setForeground(new java.awt.Color(27, 43, 60));
+        panelHeaderLun.setFont(new java.awt.Font("SansSerif", 1, 12));
+        panelHeaderLun.setForeground(new java.awt.Color(27, 43, 60));
+        lblHeaderMar.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderMar.setForeground(new java.awt.Color(27, 43, 60));
+        lblHeaderMie.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderMie.setForeground(new java.awt.Color(27, 43, 60));
+        lblHeaderJue.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderJue.setForeground(new java.awt.Color(27, 43, 60));
+        lblHeaderSab.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderSab.setForeground(new java.awt.Color(27, 43, 60));
+        lblHeaderDom.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderDom.setForeground(new java.awt.Color(27, 43, 60));
+        lblHeaderVie.setFont(new java.awt.Font("SansSerif", 1, 12));
+        lblHeaderVie.setForeground(new java.awt.Color(27, 43, 60));
+        setTitle("StockScan SGA · lblHeaderVie");
+        setMinimumSize(new java.awt.Dimension(1080, 720));
+        panelNavegacionAgenda.setBackground(new java.awt.Color(255, 255, 255));
+        lblHeaderOperario.setHorizontalAlignment(0);
+        lblHeaderOperario.setOpaque(true);
+        lblHeaderOperario.setBackground(new java.awt.Color(243, 246, 250));
+        panelHeaderLun.setHorizontalAlignment(0);
+        panelHeaderLun.setOpaque(true);
+        panelHeaderLun.setBackground(new java.awt.Color(243, 246, 250));
+        lblHeaderMar.setHorizontalAlignment(0);
+        lblHeaderMar.setOpaque(true);
+        lblHeaderMar.setBackground(new java.awt.Color(243, 246, 250));
+        lblHeaderMie.setHorizontalAlignment(0);
+        lblHeaderMie.setOpaque(true);
+        lblHeaderMie.setBackground(new java.awt.Color(243, 246, 250));
+        lblHeaderJue.setHorizontalAlignment(0);
+        lblHeaderJue.setOpaque(true);
+        lblHeaderJue.setBackground(new java.awt.Color(243, 246, 250));
+        lblHeaderVie.setHorizontalAlignment(0);
+        lblHeaderVie.setOpaque(true);
+        lblHeaderVie.setBackground(new java.awt.Color(243, 246, 250));
+        lblHeaderSab.setHorizontalAlignment(0);
+        lblHeaderSab.setOpaque(true);
+        lblHeaderSab.setBackground(new java.awt.Color(243, 246, 250));
+        lblHeaderDom.setHorizontalAlignment(0);
+        lblHeaderDom.setOpaque(true);
+        lblHeaderDom.setBackground(new java.awt.Color(243, 246, 250));
+        panelDias.setBackground(new java.awt.Color(255, 255, 255));
+        panelTurnos.setBackground(new java.awt.Color(255, 255, 255));
+        panelMarca.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavDashboard.setText("Dashboard");
+        btnNavDashboard.setHorizontalAlignment(2);
+        btnNavMapa.setText("Mapa del almacén");
+        btnNavMapa.setHorizontalAlignment(2);
+        btnNavStock.setText("Stock");
+        btnNavStock.setHorizontalAlignment(2);
+        btnNavEtiquetas.setText("Etiquetas");
+        btnNavEtiquetas.setHorizontalAlignment(2);
+        btnNavTrazabilidad.setText("Trazabilidad");
+        btnNavTrazabilidad.setHorizontalAlignment(2);
+        btnNavAlertas.setText("Alertas");
+        btnNavAlertas.setHorizontalAlignment(2);
+        lblBadgeAlertas.setHorizontalAlignment(0);
+        lblBadgeAlertas.setOpaque(true);
+        lblBadgeAlertas.setBackground(new java.awt.Color(39, 58, 77));
+        panelNavAlertas.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavEquipo.setText("Equipo");
+        btnNavEquipo.setHorizontalAlignment(2);
+        btnNavAgenda.setText("Agenda");
+        btnNavAgenda.setHorizontalAlignment(2);
+        btnNavChat.setText("Chat");
+        btnNavChat.setHorizontalAlignment(2);
+        lblBadgeChat.setHorizontalAlignment(0);
+        lblBadgeChat.setOpaque(true);
+        lblBadgeChat.setBackground(new java.awt.Color(39, 58, 77));
+        panelNavChat.setBackground(new java.awt.Color(18, 30, 43));
+        lblAvatar.setOpaque(true);
+        lblAvatar.setBackground(new java.awt.Color(27, 79, 114));
+        lblAvatar.setHorizontalAlignment(0);
+        panelDatosUsuario.setBackground(new java.awt.Color(18, 30, 43));
+        panelUsuario.setBackground(new java.awt.Color(18, 30, 43));
+        lblSeccion.setText("ESPACIO DE TRABAJO  /  ALMACÉN CENTRAL");
+        lblSeccion.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblSeccion.setForeground(new java.awt.Color(103, 119, 137));
+        panelCabecera.setBackground(new java.awt.Color(243, 246, 250));
+        panelContenido.setBackground(new java.awt.Color(243, 246, 250));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 238), 1, true));
+        javax.swing.GroupLayout panelMarcaLayout = new javax.swing.GroupLayout(panelMarca);
+        panelMarca.setLayout(panelMarcaLayout);
+        panelMarcaLayout.setHorizontalGroup(
+            panelMarcaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblLogoIconoTexto, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelMarcaLayout.setVerticalGroup(
+            panelMarcaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblLogoIconoTexto, 38, 38, 38))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelNavAlertasLayout = new javax.swing.GroupLayout(panelNavAlertas);
+        panelNavAlertas.setLayout(panelNavAlertasLayout);
+        panelNavAlertasLayout.setHorizontalGroup(
+            panelNavAlertasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnNavAlertas, 0, 180, 32767)
+                .addGap(6, 6, 6)
+                .addComponent(lblBadgeAlertas, 26, 26, 26)
+                .addGap(0, 0, 0)
+        );
+        panelNavAlertasLayout.setVerticalGroup(
+            panelNavAlertasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelNavAlertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnNavAlertas, 40, 40, 40)
+                .addComponent(lblBadgeAlertas, 40, 40, 40))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelNavChatLayout = new javax.swing.GroupLayout(panelNavChat);
+        panelNavChat.setLayout(panelNavChatLayout);
+        panelNavChatLayout.setHorizontalGroup(
+            panelNavChatLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnNavChat, 0, 180, 32767)
+                .addGap(6, 6, 6)
+                .addComponent(lblBadgeChat, 26, 26, 26)
+                .addGap(0, 0, 0)
+        );
+        panelNavChatLayout.setVerticalGroup(
+            panelNavChatLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelNavChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnNavChat, 40, 40, 40)
+                .addComponent(lblBadgeChat, 40, 40, 40))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelDatosUsuarioLayout = new javax.swing.GroupLayout(panelDatosUsuario);
+        panelDatosUsuario.setLayout(panelDatosUsuarioLayout);
+        panelDatosUsuarioLayout.setHorizontalGroup(
+            panelDatosUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelDatosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblUsuarioNombre, 0, 130, 32767)
+                .addComponent(lblUsuarioRol, 0, 130, 32767))
+                .addGap(0, 0, 0)
+        );
+        panelDatosUsuarioLayout.setVerticalGroup(
+            panelDatosUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblUsuarioNombre, -2, -1, -2)
+                .addGap(6, 6, 6)
+                .addComponent(lblUsuarioRol, -2, -1, -2)
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelUsuarioLayout = new javax.swing.GroupLayout(panelUsuario);
+        panelUsuario.setLayout(panelUsuarioLayout);
+        panelUsuarioLayout.setHorizontalGroup(
+            panelUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblAvatar, 38, 38, 38)
+                .addGap(12, 12, 12)
+                .addComponent(panelDatosUsuario, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelUsuarioLayout.setVerticalGroup(
+            panelUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblAvatar, 46, 46, 46)
+                .addComponent(panelDatosUsuario, 46, 46, 46))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
+        panelSidebar.setLayout(panelSidebarLayout);
+        panelSidebarLayout.setHorizontalGroup(
+            panelSidebarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelMarca, 0, 188, 32767)
+                .addComponent(lblLogoSubtitulo, 0, 188, 32767)
+                .addComponent(btnNavDashboard, 0, 188, 32767)
+                .addComponent(btnNavMapa, 0, 188, 32767)
+                .addComponent(btnNavStock, 0, 188, 32767)
+                .addComponent(btnNavEtiquetas, 0, 188, 32767)
+                .addComponent(btnNavTrazabilidad, 0, 188, 32767)
+                .addComponent(panelNavAlertas, 0, 188, 32767)
+                .addComponent(btnNavEquipo, 0, 188, 32767)
+                .addComponent(btnNavAgenda, 0, 188, 32767)
+                .addComponent(panelNavChat, 0, 188, 32767)
+                .addComponent(panelUsuario, 0, 188, 32767))
+                .addGap(18, 18, 18)
+        );
+        panelSidebarLayout.setVerticalGroup(
+            panelSidebarLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(panelMarca, 38, 38, 38)
+                .addGap(12, 12, 12)
+                .addComponent(lblLogoSubtitulo, -2, -1, -2)
+                .addGap(12, 12, 12)
+                .addComponent(btnNavDashboard, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavMapa, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavStock, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavEtiquetas, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavTrazabilidad, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(panelNavAlertas, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavEquipo, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavAgenda, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(panelNavChat, 40, 40, 40)
+                .addGap(70, 70, 32767)
+                .addComponent(panelUsuario, 46, 46, 46)
+                .addGap(24, 24, 24)
+        );
+        javax.swing.GroupLayout panelCabeceraLayout = new javax.swing.GroupLayout(panelCabecera);
+        panelCabecera.setLayout(panelCabeceraLayout);
+        panelCabeceraLayout.setHorizontalGroup(
+            panelCabeceraLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelCabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblSeccion, 0, 1000, 32767)
+                .addComponent(jLabel1, 0, 1000, 32767)
+                .addComponent(lblSubtituloAgenda, 0, 1000, 32767))
+                .addGap(0, 0, 0)
+        );
+        panelCabeceraLayout.setVerticalGroup(
+            panelCabeceraLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblSeccion, -2, -1, -2)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel1, -2, -1, -2)
+                .addGap(8, 8, 8)
+                .addComponent(lblSubtituloAgenda, -2, -1, -2)
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelNavegacionAgendaLayout = new javax.swing.GroupLayout(panelNavegacionAgenda);
+        panelNavegacionAgenda.setLayout(panelNavegacionAgendaLayout);
+        panelNavegacionAgendaLayout.setHorizontalGroup(
+            panelNavegacionAgendaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnAnterior, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnHoy, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnSiguiente, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelNavegacionAgendaLayout.setVerticalGroup(
+            panelNavegacionAgendaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelNavegacionAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnAnterior, 40, 40, 40)
+                .addComponent(btnHoy, 40, 40, 40)
+                .addComponent(btnSiguiente, 40, 40, 40))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelDiasLayout = new javax.swing.GroupLayout(panelDias);
+        panelDias.setLayout(panelDiasLayout);
+        panelDiasLayout.setHorizontalGroup(
+            panelDiasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblHeaderOperario, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(panelHeaderLun, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(lblHeaderMar, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(lblHeaderMie, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(lblHeaderJue, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(lblHeaderVie, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(lblHeaderSab, 0, 180, 32767)
+                .addGap(1, 1, 1)
+                .addComponent(lblHeaderDom, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelDiasLayout.setVerticalGroup(
+            panelDiasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelDiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblHeaderOperario, 46, 46, 46)
+                .addComponent(panelHeaderLun, 46, 46, 46)
+                .addComponent(lblHeaderMar, 46, 46, 46)
+                .addComponent(lblHeaderMie, 46, 46, 46)
+                .addComponent(lblHeaderJue, 46, 46, 46)
+                .addComponent(lblHeaderVie, 46, 46, 46)
+                .addComponent(lblHeaderSab, 46, 46, 46)
+                .addComponent(lblHeaderDom, 46, 46, 46))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelTurnosLayout = new javax.swing.GroupLayout(panelTurnos);
+        panelTurnos.setLayout(panelTurnosLayout);
+        panelTurnosLayout.setHorizontalGroup(
+            panelTurnosLayout.createSequentialGroup()
+                .addGap(780, 780, 32767)
+        );
+        panelTurnosLayout.setVerticalGroup(
+            panelTurnosLayout.createSequentialGroup()
+                .addGap(310, 310, 32767)
+        );
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lblHeaderOperario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(panelHeaderLun)
-                .addGap(34, 34, 34)
-                .addComponent(lblHeaderMar)
-                .addGap(45, 45, 45)
-                .addComponent(lblHeaderMie)
-                .addGap(38, 38, 38)
-                .addComponent(lblHeaderJue)
-                .addGap(46, 46, 46)
-                .addComponent(lblHeaderVie)
-                .addGap(42, 42, 42)
-                .addComponent(lblHeaderSab)
-                .addGap(44, 44, 44)
-                .addComponent(lblHeaderDom)
-                .addGap(56, 56, 56))
+            jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelNavegacionAgenda, 0, 800, 32767)
+                .addComponent(panelDias, 0, 800, 32767)
+                .addComponent(panelTurnos, 0, 800, 32767))
+                .addGap(20, 20, 20)
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(panelNavegacionAgenda, -2, -1, -2)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHeaderOperario)
-                    .addComponent(panelHeaderLun)
-                    .addComponent(lblHeaderMar)
-                    .addComponent(lblHeaderMie)
-                    .addComponent(lblHeaderJue)
-                    .addComponent(lblHeaderDom)
-                    .addComponent(lblHeaderVie)
-                    .addComponent(lblHeaderSab))
-                .addContainerGap(402, Short.MAX_VALUE))
+                .addComponent(panelDias, -2, -1, -2)
+                .addGap(18, 18, 18)
+                .addComponent(panelTurnos, -2, -1, -2)
+                .addGap(20, 20, 20)
         );
-
+        javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
+        panelContenido.setLayout(panelContenidoLayout);
+        panelContenidoLayout.setHorizontalGroup(
+            panelContenidoLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelCabecera, 0, 1024, 32767)
+                .addComponent(jPanel1, 0, 1024, 32767))
+                .addGap(28, 28, 28)
+        );
+        panelContenidoLayout.setVerticalGroup(
+            panelContenidoLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(panelCabecera, -2, -1, -2)
+                .addGap(22, 22, 22)
+                .addComponent(jPanel1, -2, -1, -2)
+                .addGap(28, 28, 28)
+        );
+        scrollContenido.setViewportView(panelContenido);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAnterior)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnHoy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSiguiente)
-                        .addGap(39, 39, 39))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSubtituloAgenda)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 87, Short.MAX_VALUE))))
+            layout.createSequentialGroup()
+                .addComponent(panelSidebar, 224, 224, 224)
+                .addComponent(scrollContenido, 0, 1080, 32767)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnAnterior)
-                    .addComponent(btnHoy)
-                    .addComponent(btnSiguiente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSubtituloAgenda)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelSidebar, 0, 820, 32767)
+                .addComponent(scrollContenido, 0, 820, 32767)
         );
+        btnNavDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/dashboard.png")));
+        btnNavDashboard.setIconTextGap(10);
+        btnNavDashboard.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/mapa.png")));
+        btnNavMapa.setIconTextGap(10);
+        btnNavMapa.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/stock.png")));
+        btnNavStock.setIconTextGap(10);
+        btnNavStock.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavEtiquetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/etiquetas.png")));
+        btnNavEtiquetas.setIconTextGap(10);
+        btnNavEtiquetas.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavTrazabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/trazabilidad.png")));
+        btnNavTrazabilidad.setIconTextGap(10);
+        btnNavTrazabilidad.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavAlertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/alertas.png")));
+        btnNavAlertas.setIconTextGap(10);
+        btnNavAlertas.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/equipo.png")));
+        btnNavEquipo.setIconTextGap(10);
+        btnNavEquipo.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/agenda_activo.png")));
+        btnNavAgenda.setIconTextGap(10);
+        btnNavAgenda.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavChat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/chat.png")));
+        btnNavChat.setIconTextGap(10);
+        btnNavChat.setMargin(new java.awt.Insets(8, 10, 8, 10));
 
         pack();
+        setLocationRelativeTo(null);
+
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Reserva la acción del botón de navegación al equipo.
+     * El cambio de vista está pendiente de implementación.
+     *
+     * @param evt evento de acción del botón
+     */
     private void btnNavEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavEquipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNavEquipoActionPerformed
 
+    /**
+     * Reserva la acción del botón de navegación al chat.
+     * El cambio de vista está pendiente de implementación.
+     *
+     * @param evt evento de acción del botón
+     */
     private void btnNavChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavChatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNavChatActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Abre la agenda y los turnos como ventana independiente en el hilo de eventos de Swing.
+     *
+     * @param args argumentos de línea de comandos, que se ignoran
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -419,7 +747,7 @@ public class AgendaPanel extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -475,5 +803,17 @@ public class AgendaPanel extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuarioRol;
     private javax.swing.JLabel panelHeaderLun;
     private javax.swing.JPanel panelSidebar;
+    private javax.swing.JPanel panelNavegacionAgenda;
+    private javax.swing.JPanel panelDias;
+    private javax.swing.JPanel panelTurnos;
+    private javax.swing.JPanel panelMarca;
+    private javax.swing.JPanel panelNavAlertas;
+    private javax.swing.JPanel panelNavChat;
+    private javax.swing.JPanel panelDatosUsuario;
+    private javax.swing.JPanel panelUsuario;
+    private javax.swing.JLabel lblSeccion;
+    private javax.swing.JPanel panelCabecera;
+    private javax.swing.JPanel panelContenido;
+    private javax.swing.JScrollPane scrollContenido;
     // End of variables declaration//GEN-END:variables
 }

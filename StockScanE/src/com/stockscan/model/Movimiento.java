@@ -5,9 +5,16 @@
 package com.stockscan.model;
 
 /**
+ * Tipo reservado para representar un movimiento de existencias.
+ * El producto, la cantidad y la fecha del movimiento están pendientes de definición.
  *
  * @author alvarolopez
  */
 public class Movimiento {
-    
+
+    /**
+     * Crea una instancia sin datos de movimiento.
+     */
+    public Movimiento() {
+    }
 }

@@ -5,9 +5,16 @@
 package com.stockscan.model.dao;
 
 /**
+ * Clase reservada para centralizar el acceso a la base de datos de StockScan.
+ * La configuración y la apertura de conexiones están pendientes de implementación.
  *
  * @author alvarolopez
  */
 public class DatabaseConnection {
-    
+
+    /**
+     * Crea una instancia sin abrir una conexión.
+     */
+    public DatabaseConnection() {
+    }
 }

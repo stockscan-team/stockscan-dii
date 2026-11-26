@@ -1,20 +1,156 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.stockscan.view.pages;
 
+import com.stockscan.controller.FeedbackController;
+import com.stockscan.view.components.FeedbackStockScan;
+
 /**
+ * Vista principal de gestión de inventario y stock de StockScan SGA.
+ * Muestra una tabla de productos de ejemplo
+ * con un buscador y controles de categoría.
  *
  * @author alvarolopez
+ * @serial exclude
  */
 public class StockPanel extends javax.swing.JFrame {
 
+    /** Botón de la categoría de inventario resaltada. */
+    private javax.swing.JButton filtroActivo;
+
     /**
-     * Creates new form StockPanel
+     * Prepara la tabla y selecciona la categoría Todos.
+     *
+     * @throws java.awt.HeadlessException
+     * si el entorno no admite ventanas
      */
     public StockPanel() {
         initComponents();
+        filtroActivo = btnFiltroTodos;
+        configurarEfectosVisuales();
+    }
+
+    /**
+     * Configura los estados visuales y las notificaciones.
+     * Actualiza la categoría seleccionada al completar la activación.
+     * Conserva las filas de ejemplo y las acciones existentes.
+     */
+    private void configurarEfectosVisuales() {
+        FeedbackStockScan feedback = new FeedbackStockScan();
+
+        feedback.addStockScanListener(
+                new FeedbackController()
+        );
+
+        final javax.swing.JButton[] botonesFiltro = {
+            btnFiltroTodos,
+            btnFiltroFerreteria,
+            btnFiltroElectronica,
+            btnFiltroEPI,
+            btnFiltroConsumibles,
+            btnFiltroEmbalaje
+        };
+
+        feedback.instalar(
+                btnFiltroTodos,
+                "StockPanel.btnFiltroTodos",
+                () -> btnFiltroTodos == filtroActivo
+        );
+
+        feedback.instalar(
+                btnFiltroFerreteria,
+                "StockPanel.btnFiltroFerreteria",
+                () -> btnFiltroFerreteria == filtroActivo
+        );
+
+        feedback.instalar(
+                btnFiltroElectronica,
+                "StockPanel.btnFiltroElectronica",
+                () -> btnFiltroElectronica == filtroActivo
+        );
+
+        feedback.instalar(
+                btnFiltroEPI,
+                "StockPanel.btnFiltroEPI",
+                () -> btnFiltroEPI == filtroActivo
+        );
+
+        feedback.instalar(
+                btnFiltroConsumibles,
+                "StockPanel.btnFiltroConsumibles",
+                () -> btnFiltroConsumibles == filtroActivo
+        );
+
+        feedback.instalar(
+                btnFiltroEmbalaje,
+                "StockPanel.btnFiltroEmbalaje",
+                () -> btnFiltroEmbalaje == filtroActivo
+        );
+
+        for (final javax.swing.JButton filtro : botonesFiltro) {
+            filtro.addActionListener(evento -> {
+                filtroActivo = filtro;
+                feedback.refrescar(botonesFiltro);
+            });
+        }
+
+        feedback.instalar(
+                btnAñadirProducto,
+                "StockPanel.btnAñadirProducto",
+                null
+        );
+
+        feedback.instalar(
+                btnNavAgenda,
+                "StockPanel.btnNavAgenda",
+                null
+        );
+
+        feedback.instalar(
+                btnNavAlertas,
+                "StockPanel.btnNavAlertas",
+                null
+        );
+
+        feedback.instalar(
+                btnNavChat,
+                "StockPanel.btnNavChat",
+                null
+        );
+
+        feedback.instalar(
+                btnNavDashboard,
+                "StockPanel.btnNavDashboard",
+                null
+        );
+
+        feedback.instalar(
+                btnNavEquipo,
+                "StockPanel.btnNavEquipo",
+                null
+        );
+
+        feedback.instalar(
+                btnNavEtiquetas,
+                "StockPanel.btnNavEtiquetas",
+                null
+        );
+
+        feedback.instalar(
+                btnNavMapa,
+                "StockPanel.btnNavMapa",
+                null
+        );
+
+        feedback.instalar(
+                btnNavStock,
+                "StockPanel.btnNavStock",
+                null
+        );
+
+        feedback.instalar(
+                btnNavTrazabilidad,
+                "StockPanel.btnNavTrazabilidad",
+                null
+        );
     }
 
     /**
@@ -25,6 +161,19 @@ public class StockPanel extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        scrollContenido = new javax.swing.JScrollPane();
+        panelContenido = new javax.swing.JPanel();
+        panelCabecera = new javax.swing.JPanel();
+        lblSeccion = new javax.swing.JLabel();
+        panelUsuario = new javax.swing.JPanel();
+        panelDatosUsuario = new javax.swing.JPanel();
+        panelNavChat = new javax.swing.JPanel();
+        panelNavAlertas = new javax.swing.JPanel();
+        panelMarca = new javax.swing.JPanel();
+        panelInventario = new javax.swing.JPanel();
+        lblTablaProductos = new javax.swing.JLabel();
+        panelCategorias = new javax.swing.JPanel();
+        panelBusqueda = new javax.swing.JPanel();
 
         scrollTablaStock = new javax.swing.JScrollPane();
         panelSidebar = new javax.swing.JPanel();
@@ -59,303 +208,28 @@ public class StockPanel extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductosStock = new javax.swing.JTable();
 
-        scrollTablaStock.setPreferredSize(new java.awt.Dimension(730, 440));
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(32767, 32767));
-        setMinimumSize(new java.awt.Dimension(900, 600));
-        setPreferredSize(new java.awt.Dimension(1000, 620));
-
-        panelSidebar.setBackground(new java.awt.Color(18, 30, 43));
-        panelSidebar.setPreferredSize(new java.awt.Dimension(220, 600));
-
-        lblLogoIconoTexto.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
-        lblLogoIconoTexto.setForeground(new java.awt.Color(255, 255, 255));
         lblLogoIconoTexto.setText("StockScan");
-
-        lblLogoSubtitulo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
-        lblLogoSubtitulo.setForeground(new java.awt.Color(174, 174, 178));
         lblLogoSubtitulo.setText("Almacen Central");
-
-        btnNavDashboard.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavDashboard.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavDashboard.setText("Dashboard");
-        btnNavDashboard.setBorderPainted(false);
-        btnNavDashboard.setContentAreaFilled(false);
-        btnNavDashboard.setFocusPainted(false);
-        btnNavDashboard.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavDashboard.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavMapa.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavMapa.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavMapa.setText("Mapa de almacen");
-        btnNavMapa.setBorderPainted(false);
-        btnNavMapa.setContentAreaFilled(false);
-        btnNavMapa.setFocusPainted(false);
-        btnNavMapa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavMapa.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavStock.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavStock.setForeground(new java.awt.Color(27, 79, 114));
-        btnNavStock.setText("Stock");
-        btnNavStock.setBorderPainted(false);
-        btnNavStock.setFocusPainted(false);
-        btnNavStock.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavStock.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavEtiquetas.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavEtiquetas.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavEtiquetas.setText("Etiquetas");
-        btnNavEtiquetas.setBorderPainted(false);
-        btnNavEtiquetas.setContentAreaFilled(false);
-        btnNavEtiquetas.setFocusPainted(false);
-        btnNavEtiquetas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavEtiquetas.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavTrazabilidad.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavTrazabilidad.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavTrazabilidad.setText("Trazabilidad");
-        btnNavTrazabilidad.setBorderPainted(false);
-        btnNavTrazabilidad.setContentAreaFilled(false);
-        btnNavTrazabilidad.setFocusPainted(false);
-        btnNavTrazabilidad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavTrazabilidad.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavAlertas.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavAlertas.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavAlertas.setText("Alertas");
-        btnNavAlertas.setBorderPainted(false);
-        btnNavAlertas.setContentAreaFilled(false);
-        btnNavAlertas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavAlertas.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavEquipo.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavEquipo.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavEquipo.setText("Equipo");
-        btnNavEquipo.setBorderPainted(false);
-        btnNavEquipo.setContentAreaFilled(false);
-        btnNavEquipo.setFocusPainted(false);
-        btnNavEquipo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavEquipo.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavAgenda.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavAgenda.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavAgenda.setText("Agenda");
-        btnNavAgenda.setBorderPainted(false);
-        btnNavAgenda.setContentAreaFilled(false);
         btnNavAgenda.setDefaultCapable(false);
-        btnNavAgenda.setFocusPainted(false);
-        btnNavAgenda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavAgenda.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        btnNavChat.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        btnNavChat.setForeground(new java.awt.Color(174, 174, 178));
-        btnNavChat.setText("Chat");
-        btnNavChat.setBorderPainted(false);
-        btnNavChat.setContentAreaFilled(false);
-        btnNavChat.setFocusPainted(false);
-        btnNavChat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnNavChat.setPreferredSize(new java.awt.Dimension(200, 44));
-
-        lblBadgeAlertas.setBackground(new java.awt.Color(231, 76, 60));
-        lblBadgeAlertas.setFont(new java.awt.Font("Helvetica Neue", 1, 11)); // NOI18N
-        lblBadgeAlertas.setForeground(new java.awt.Color(255, 255, 255));
         lblBadgeAlertas.setText("12");
-        lblBadgeAlertas.setOpaque(true);
-        lblBadgeAlertas.setPreferredSize(new java.awt.Dimension(22, 22));
-
-        lblBadgeChat.setBackground(new java.awt.Color(231, 76, 60));
-        lblBadgeChat.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblBadgeChat.setForeground(new java.awt.Color(255, 255, 255));
         lblBadgeChat.setText("3");
-        lblBadgeChat.setOpaque(true);
-        lblBadgeChat.setPreferredSize(new java.awt.Dimension(22, 22));
-
-        lblAvatar.setBackground(new java.awt.Color(243, 156, 18));
-        lblAvatar.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblAvatar.setForeground(new java.awt.Color(255, 255, 255));
         lblAvatar.setText("AR");
-        lblAvatar.setOpaque(true);
-        lblAvatar.setPreferredSize(new java.awt.Dimension(32, 32));
-
-        lblUsuarioNombre.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblUsuarioNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuarioNombre.setText("Ana Rodriguez");
-
-        lblUsuarioRol.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
-        lblUsuarioRol.setForeground(new java.awt.Color(174, 174, 178));
         lblUsuarioRol.setText("Admin");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/pages/Logo.png"))); // NOI18N
-
-        javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
-        panelSidebar.setLayout(panelSidebarLayout);
-        panelSidebarLayout.setHorizontalGroup(
-            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSidebarLayout.createSequentialGroup()
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNavAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblLogoSubtitulo)
-                                .addComponent(lblLogoIconoTexto)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNavDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnNavMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNavStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnNavEtiquetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnNavTrazabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(panelSidebarLayout.createSequentialGroup()
-                                    .addComponent(btnNavAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblBadgeAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnNavEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblUsuarioNombre)
-                                .addComponent(lblUsuarioRol)))
-                        .addGroup(panelSidebarLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnNavChat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addComponent(lblBadgeChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelSidebarLayout.setVerticalGroup(
-            panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSidebarLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLogoIconoTexto)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblLogoSubtitulo)
-                .addGap(18, 18, 18)
-                .addComponent(btnNavDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavEtiquetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavTrazabilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNavAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBadgeAlertas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNavAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNavChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBadgeChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSidebarLayout.createSequentialGroup()
-                        .addComponent(lblUsuarioNombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUsuarioRol)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        lblTituloStock.setFont(new java.awt.Font("SansSerif", 1, 22)); // NOI18N
-        lblTituloStock.setForeground(new java.awt.Color(28, 28, 30));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/pages/Logo.png")));
         lblTituloStock.setText("Stock");
-
-        lblSubtituloStock.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        lblSubtituloStock.setForeground(new java.awt.Color(110, 110, 115));
         lblSubtituloStock.setText("8 productos · 4 alertas");
-
-        btnAñadirProducto.setBackground(new java.awt.Color(27, 79, 114));
-        btnAñadirProducto.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btnAñadirProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnAñadirProducto.setText("+ Añadir producto");
-        btnAñadirProducto.setPreferredSize(new java.awt.Dimension(140, 36));
-
-        panelBarraFiltros.setBackground(new java.awt.Color(255, 255, 255));
 
         txtBuscarStock.setText("Buscar por nombre o código...");
-
-        btnFiltroTodos.setBackground(new java.awt.Color(27, 79, 114));
-        btnFiltroTodos.setForeground(new java.awt.Color(255, 255, 255));
         btnFiltroTodos.setText("Todos");
-
-        btnFiltroElectronica.setForeground(new java.awt.Color(110, 110, 115));
         btnFiltroElectronica.setText("Electrónica");
-        btnFiltroElectronica.setContentAreaFilled(false);
-
-        btnFiltroFerreteria.setForeground(new java.awt.Color(110, 110, 115));
         btnFiltroFerreteria.setText("Ferretería");
-        btnFiltroFerreteria.setContentAreaFilled(false);
-
-        btnFiltroEPI.setForeground(new java.awt.Color(110, 110, 115));
         btnFiltroEPI.setText("EPI");
-        btnFiltroEPI.setContentAreaFilled(false);
-
-        btnFiltroConsumibles.setForeground(new java.awt.Color(110, 110, 115));
         btnFiltroConsumibles.setText("Consumibles");
-        btnFiltroConsumibles.setContentAreaFilled(false);
-
-        btnFiltroEmbalaje.setForeground(new java.awt.Color(110, 110, 115));
         btnFiltroEmbalaje.setText("Embalaje");
-        btnFiltroEmbalaje.setContentAreaFilled(false);
-
-        javax.swing.GroupLayout panelBarraFiltrosLayout = new javax.swing.GroupLayout(panelBarraFiltros);
-        panelBarraFiltros.setLayout(panelBarraFiltrosLayout);
-        panelBarraFiltrosLayout.setHorizontalGroup(
-            panelBarraFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBarraFiltrosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtBuscarStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltroTodos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltroFerreteria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltroElectronica, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltroEPI, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltroConsumibles)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFiltroEmbalaje)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelBarraFiltrosLayout.setVerticalGroup(
-            panelBarraFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBarraFiltrosLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(panelBarraFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscarStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFiltroTodos)
-                    .addComponent(btnFiltroElectronica)
-                    .addComponent(btnFiltroFerreteria)
-                    .addComponent(btnFiltroEPI)
-                    .addComponent(btnFiltroConsumibles)
-                    .addComponent(btnFiltroEmbalaje))
-                .addContainerGap())
-        );
 
         tblProductosStock.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -380,71 +254,562 @@ public class StockPanel extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        panelSidebar.setBackground(new java.awt.Color(18, 30, 43));
+        lblLogoIconoTexto.setFont(new java.awt.Font("SansSerif", 1, 23));
+        lblLogoIconoTexto.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogoSubtitulo.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblLogoSubtitulo.setForeground(new java.awt.Color(151, 174, 194));
+        btnNavDashboard.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavDashboard.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavDashboard.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavDashboard.setFocusPainted(true);
+        btnNavDashboard.setBorderPainted(false);
+        btnNavDashboard.setContentAreaFilled(true);
+        btnNavDashboard.setOpaque(true);
+        btnNavMapa.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavMapa.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavMapa.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavMapa.setFocusPainted(true);
+        btnNavMapa.setBorderPainted(false);
+        btnNavMapa.setContentAreaFilled(true);
+        btnNavMapa.setOpaque(true);
+        btnNavStock.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavStock.setForeground(new java.awt.Color(255, 255, 255));
+        btnNavStock.setBackground(new java.awt.Color(27, 79, 114));
+        btnNavStock.setFocusPainted(true);
+        btnNavStock.setBorderPainted(false);
+        btnNavStock.setContentAreaFilled(true);
+        btnNavStock.setOpaque(true);
+        btnNavEtiquetas.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavEtiquetas.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavEtiquetas.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavEtiquetas.setFocusPainted(true);
+        btnNavEtiquetas.setBorderPainted(false);
+        btnNavEtiquetas.setContentAreaFilled(true);
+        btnNavEtiquetas.setOpaque(true);
+        btnNavTrazabilidad.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavTrazabilidad.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavTrazabilidad.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavTrazabilidad.setFocusPainted(true);
+        btnNavTrazabilidad.setBorderPainted(false);
+        btnNavTrazabilidad.setContentAreaFilled(true);
+        btnNavTrazabilidad.setOpaque(true);
+        btnNavAlertas.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavAlertas.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavAlertas.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavAlertas.setFocusPainted(true);
+        btnNavAlertas.setBorderPainted(false);
+        btnNavAlertas.setContentAreaFilled(true);
+        btnNavAlertas.setOpaque(true);
+        btnNavEquipo.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavEquipo.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavEquipo.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavEquipo.setFocusPainted(true);
+        btnNavEquipo.setBorderPainted(false);
+        btnNavEquipo.setContentAreaFilled(true);
+        btnNavEquipo.setOpaque(true);
+        btnNavAgenda.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavAgenda.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavAgenda.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavAgenda.setFocusPainted(true);
+        btnNavAgenda.setBorderPainted(false);
+        btnNavAgenda.setContentAreaFilled(true);
+        btnNavAgenda.setOpaque(true);
+        btnNavChat.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnNavChat.setForeground(new java.awt.Color(186, 202, 217));
+        btnNavChat.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavChat.setFocusPainted(true);
+        btnNavChat.setBorderPainted(false);
+        btnNavChat.setContentAreaFilled(true);
+        btnNavChat.setOpaque(true);
+        lblBadgeAlertas.setFont(new java.awt.Font("SansSerif", 1, 11));
+        lblBadgeAlertas.setForeground(new java.awt.Color(255, 255, 255));
+        lblBadgeChat.setFont(new java.awt.Font("SansSerif", 1, 11));
+        lblBadgeChat.setForeground(new java.awt.Color(255, 255, 255));
+        lblAvatar.setFont(new java.awt.Font("SansSerif", 1, 13));
+        lblAvatar.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarioNombre.setFont(new java.awt.Font("SansSerif", 1, 13));
+        lblUsuarioNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarioRol.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblUsuarioRol.setForeground(new java.awt.Color(151, 174, 194));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 13));
+        jLabel1.setForeground(new java.awt.Color(27, 43, 60));
+        lblTituloStock.setFont(new java.awt.Font("SansSerif", 1, 28));
+        lblTituloStock.setForeground(new java.awt.Color(27, 43, 60));
+        lblSubtituloStock.setFont(new java.awt.Font("SansSerif", 0, 13));
+        lblSubtituloStock.setForeground(new java.awt.Color(103, 119, 137));
+        btnAñadirProducto.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnAñadirProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnAñadirProducto.setBackground(new java.awt.Color(27, 79, 114));
+        btnAñadirProducto.setFocusPainted(true);
+        btnAñadirProducto.setBorderPainted(false);
+        btnAñadirProducto.setContentAreaFilled(true);
+        btnAñadirProducto.setOpaque(true);
+        panelBarraFiltros.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscarStock.setFont(new java.awt.Font("SansSerif", 0, 13));
+        txtBuscarStock.setForeground(new java.awt.Color(27, 43, 60));
+        txtBuscarStock.setBackground(new java.awt.Color(255, 255, 255));
+        btnFiltroTodos.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnFiltroTodos.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltroTodos.setBackground(new java.awt.Color(27, 79, 114));
+        btnFiltroTodos.setFocusPainted(true);
+        btnFiltroTodos.setBorderPainted(false);
+        btnFiltroTodos.setContentAreaFilled(true);
+        btnFiltroTodos.setOpaque(true);
+        btnFiltroElectronica.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnFiltroElectronica.setForeground(new java.awt.Color(27, 43, 60));
+        btnFiltroElectronica.setBackground(new java.awt.Color(255, 255, 255));
+        btnFiltroElectronica.setFocusPainted(true);
+        btnFiltroElectronica.setBorderPainted(false);
+        btnFiltroElectronica.setContentAreaFilled(true);
+        btnFiltroElectronica.setOpaque(true);
+        btnFiltroFerreteria.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnFiltroFerreteria.setForeground(new java.awt.Color(27, 43, 60));
+        btnFiltroFerreteria.setBackground(new java.awt.Color(255, 255, 255));
+        btnFiltroFerreteria.setFocusPainted(true);
+        btnFiltroFerreteria.setBorderPainted(false);
+        btnFiltroFerreteria.setContentAreaFilled(true);
+        btnFiltroFerreteria.setOpaque(true);
+        btnFiltroEPI.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnFiltroEPI.setForeground(new java.awt.Color(27, 43, 60));
+        btnFiltroEPI.setBackground(new java.awt.Color(255, 255, 255));
+        btnFiltroEPI.setFocusPainted(true);
+        btnFiltroEPI.setBorderPainted(false);
+        btnFiltroEPI.setContentAreaFilled(true);
+        btnFiltroEPI.setOpaque(true);
+        btnFiltroConsumibles.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnFiltroConsumibles.setForeground(new java.awt.Color(27, 43, 60));
+        btnFiltroConsumibles.setBackground(new java.awt.Color(255, 255, 255));
+        btnFiltroConsumibles.setFocusPainted(true);
+        btnFiltroConsumibles.setBorderPainted(false);
+        btnFiltroConsumibles.setContentAreaFilled(true);
+        btnFiltroConsumibles.setOpaque(true);
+        btnFiltroEmbalaje.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnFiltroEmbalaje.setForeground(new java.awt.Color(27, 43, 60));
+        btnFiltroEmbalaje.setBackground(new java.awt.Color(255, 255, 255));
+        btnFiltroEmbalaje.setFocusPainted(true);
+        btnFiltroEmbalaje.setBorderPainted(false);
+        btnFiltroEmbalaje.setContentAreaFilled(true);
+        btnFiltroEmbalaje.setOpaque(true);
+        tblProductosStock.setFont(new java.awt.Font("SansSerif", 0, 13));
+        tblProductosStock.setForeground(new java.awt.Color(27, 43, 60));
+        tblProductosStock.setBackground(new java.awt.Color(255, 255, 255));
+        tblProductosStock.setRowHeight(44);
+        tblProductosStock.setShowHorizontalLines(false);
+        tblProductosStock.setShowVerticalLines(false);
+        tblProductosStock.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblProductosStock.setSelectionBackground(new java.awt.Color(224, 237, 247));
+        tblProductosStock.setSelectionForeground(new java.awt.Color(27, 43, 60));
+        tblProductosStock.setFillsViewportHeight(true);
+        setTitle("StockScan SGA · tblProductosStock");
+        setMinimumSize(new java.awt.Dimension(1080, 720));
+        panelBusqueda.setBackground(new java.awt.Color(255, 255, 255));
+        panelCategorias.setBackground(new java.awt.Color(255, 255, 255));
+        lblTablaProductos.setText("Inventario de productos");
+        lblTablaProductos.setFont(new java.awt.Font("SansSerif", 1, 16));
+        lblTablaProductos.setForeground(new java.awt.Color(27, 43, 60));
+        panelInventario.setBackground(new java.awt.Color(255, 255, 255));
+        panelMarca.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavDashboard.setText("Dashboard");
+        btnNavDashboard.setHorizontalAlignment(2);
+        btnNavMapa.setText("Mapa del almacén");
+        btnNavMapa.setHorizontalAlignment(2);
+        btnNavStock.setText("Stock");
+        btnNavStock.setHorizontalAlignment(2);
+        btnNavEtiquetas.setText("Etiquetas");
+        btnNavEtiquetas.setHorizontalAlignment(2);
+        btnNavTrazabilidad.setText("Trazabilidad");
+        btnNavTrazabilidad.setHorizontalAlignment(2);
+        btnNavAlertas.setText("Alertas");
+        btnNavAlertas.setHorizontalAlignment(2);
+        lblBadgeAlertas.setHorizontalAlignment(0);
+        lblBadgeAlertas.setOpaque(true);
+        lblBadgeAlertas.setBackground(new java.awt.Color(39, 58, 77));
+        panelNavAlertas.setBackground(new java.awt.Color(18, 30, 43));
+        btnNavEquipo.setText("Equipo");
+        btnNavEquipo.setHorizontalAlignment(2);
+        btnNavAgenda.setText("Agenda");
+        btnNavAgenda.setHorizontalAlignment(2);
+        btnNavChat.setText("Chat");
+        btnNavChat.setHorizontalAlignment(2);
+        lblBadgeChat.setHorizontalAlignment(0);
+        lblBadgeChat.setOpaque(true);
+        lblBadgeChat.setBackground(new java.awt.Color(39, 58, 77));
+        panelNavChat.setBackground(new java.awt.Color(18, 30, 43));
+        lblAvatar.setOpaque(true);
+        lblAvatar.setBackground(new java.awt.Color(27, 79, 114));
+        lblAvatar.setHorizontalAlignment(0);
+        panelDatosUsuario.setBackground(new java.awt.Color(18, 30, 43));
+        panelUsuario.setBackground(new java.awt.Color(18, 30, 43));
+        lblSeccion.setText("ESPACIO DE TRABAJO  /  ALMACÉN CENTRAL");
+        lblSeccion.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblSeccion.setForeground(new java.awt.Color(103, 119, 137));
+        panelCabecera.setBackground(new java.awt.Color(243, 246, 250));
+        panelContenido.setBackground(new java.awt.Color(243, 246, 250));
+        tblProductosStock.setAutoResizeMode(0);
+        panelBarraFiltros.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 238), 1, true));
+        panelInventario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 238), 1, true));
+        tblProductosStock.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tblProductosStock.getColumnModel().getColumn(0).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(1).setPreferredWidth(255);
+        tblProductosStock.getColumnModel().getColumn(1).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tblProductosStock.getColumnModel().getColumn(2).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(3).setPreferredWidth(135);
+        tblProductosStock.getColumnModel().getColumn(3).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(4).setPreferredWidth(180);
+        tblProductosStock.getColumnModel().getColumn(4).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(5).setPreferredWidth(60);
+        tblProductosStock.getColumnModel().getColumn(5).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(6).setPreferredWidth(60);
+        tblProductosStock.getColumnModel().getColumn(6).setMinWidth(60);
+        tblProductosStock.getColumnModel().getColumn(7).setPreferredWidth(75);
+        tblProductosStock.getColumnModel().getColumn(7).setMinWidth(60);
+        javax.swing.GroupLayout panelMarcaLayout = new javax.swing.GroupLayout(panelMarca);
+        panelMarca.setLayout(panelMarcaLayout);
+        panelMarcaLayout.setHorizontalGroup(
+            panelMarcaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, 28, 28, 28)
+                .addGap(10, 10, 10)
+                .addComponent(lblLogoIconoTexto, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelMarcaLayout.setVerticalGroup(
+            panelMarcaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, 38, 38, 38)
+                .addComponent(lblLogoIconoTexto, 38, 38, 38))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelNavAlertasLayout = new javax.swing.GroupLayout(panelNavAlertas);
+        panelNavAlertas.setLayout(panelNavAlertasLayout);
+        panelNavAlertasLayout.setHorizontalGroup(
+            panelNavAlertasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnNavAlertas, 0, 180, 32767)
+                .addGap(6, 6, 6)
+                .addComponent(lblBadgeAlertas, 26, 26, 26)
+                .addGap(0, 0, 0)
+        );
+        panelNavAlertasLayout.setVerticalGroup(
+            panelNavAlertasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelNavAlertasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnNavAlertas, 40, 40, 40)
+                .addComponent(lblBadgeAlertas, 40, 40, 40))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelNavChatLayout = new javax.swing.GroupLayout(panelNavChat);
+        panelNavChat.setLayout(panelNavChatLayout);
+        panelNavChatLayout.setHorizontalGroup(
+            panelNavChatLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnNavChat, 0, 180, 32767)
+                .addGap(6, 6, 6)
+                .addComponent(lblBadgeChat, 26, 26, 26)
+                .addGap(0, 0, 0)
+        );
+        panelNavChatLayout.setVerticalGroup(
+            panelNavChatLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelNavChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnNavChat, 40, 40, 40)
+                .addComponent(lblBadgeChat, 40, 40, 40))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelDatosUsuarioLayout = new javax.swing.GroupLayout(panelDatosUsuario);
+        panelDatosUsuario.setLayout(panelDatosUsuarioLayout);
+        panelDatosUsuarioLayout.setHorizontalGroup(
+            panelDatosUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelDatosUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblUsuarioNombre, 0, 130, 32767)
+                .addComponent(lblUsuarioRol, 0, 130, 32767))
+                .addGap(0, 0, 0)
+        );
+        panelDatosUsuarioLayout.setVerticalGroup(
+            panelDatosUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblUsuarioNombre, -2, -1, -2)
+                .addGap(6, 6, 6)
+                .addComponent(lblUsuarioRol, -2, -1, -2)
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelUsuarioLayout = new javax.swing.GroupLayout(panelUsuario);
+        panelUsuario.setLayout(panelUsuarioLayout);
+        panelUsuarioLayout.setHorizontalGroup(
+            panelUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblAvatar, 38, 38, 38)
+                .addGap(12, 12, 12)
+                .addComponent(panelDatosUsuario, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelUsuarioLayout.setVerticalGroup(
+            panelUsuarioLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblAvatar, 46, 46, 46)
+                .addComponent(panelDatosUsuario, 46, 46, 46))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelSidebarLayout = new javax.swing.GroupLayout(panelSidebar);
+        panelSidebar.setLayout(panelSidebarLayout);
+        panelSidebarLayout.setHorizontalGroup(
+            panelSidebarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(panelSidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelMarca, 0, 188, 32767)
+                .addComponent(lblLogoSubtitulo, 0, 188, 32767)
+                .addComponent(btnNavDashboard, 0, 188, 32767)
+                .addComponent(btnNavMapa, 0, 188, 32767)
+                .addComponent(btnNavStock, 0, 188, 32767)
+                .addComponent(btnNavEtiquetas, 0, 188, 32767)
+                .addComponent(btnNavTrazabilidad, 0, 188, 32767)
+                .addComponent(panelNavAlertas, 0, 188, 32767)
+                .addComponent(btnNavEquipo, 0, 188, 32767)
+                .addComponent(btnNavAgenda, 0, 188, 32767)
+                .addComponent(panelNavChat, 0, 188, 32767)
+                .addComponent(panelUsuario, 0, 188, 32767))
+                .addGap(18, 18, 18)
+        );
+        panelSidebarLayout.setVerticalGroup(
+            panelSidebarLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(panelMarca, 38, 38, 38)
+                .addGap(12, 12, 12)
+                .addComponent(lblLogoSubtitulo, -2, -1, -2)
+                .addGap(12, 12, 12)
+                .addComponent(btnNavDashboard, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavMapa, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavStock, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavEtiquetas, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavTrazabilidad, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(panelNavAlertas, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavEquipo, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(btnNavAgenda, 40, 40, 40)
+                .addGap(6, 6, 6)
+                .addComponent(panelNavChat, 40, 40, 40)
+                .addGap(70, 70, 32767)
+                .addComponent(panelUsuario, 46, 46, 46)
+                .addGap(24, 24, 24)
+        );
+        javax.swing.GroupLayout panelCabeceraLayout = new javax.swing.GroupLayout(panelCabecera);
+        panelCabecera.setLayout(panelCabeceraLayout);
+        panelCabeceraLayout.setHorizontalGroup(
+            panelCabeceraLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelCabeceraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblSeccion, 0, 1000, 32767)
+                .addComponent(lblTituloStock, 0, 1000, 32767)
+                .addComponent(lblSubtituloStock, 0, 1000, 32767))
+                .addGap(0, 0, 0)
+        );
+        panelCabeceraLayout.setVerticalGroup(
+            panelCabeceraLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(lblSeccion, -2, -1, -2)
+                .addGap(8, 8, 8)
+                .addComponent(lblTituloStock, -2, -1, -2)
+                .addGap(8, 8, 8)
+                .addComponent(lblSubtituloStock, -2, -1, -2)
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelBusquedaLayout = new javax.swing.GroupLayout(panelBusqueda);
+        panelBusqueda.setLayout(panelBusquedaLayout);
+        panelBusquedaLayout.setHorizontalGroup(
+            panelBusquedaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(txtBuscarStock, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnAñadirProducto, 170, 170, 170)
+                .addGap(0, 0, 0)
+        );
+        panelBusquedaLayout.setVerticalGroup(
+            panelBusquedaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(txtBuscarStock, 42, 42, 42)
+                .addComponent(btnAñadirProducto, 42, 42, 42))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelCategoriasLayout = new javax.swing.GroupLayout(panelCategorias);
+        panelCategorias.setLayout(panelCategoriasLayout);
+        panelCategoriasLayout.setHorizontalGroup(
+            panelCategoriasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnFiltroTodos, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnFiltroFerreteria, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnFiltroElectronica, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnFiltroEPI, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnFiltroConsumibles, 0, 180, 32767)
+                .addGap(12, 12, 12)
+                .addComponent(btnFiltroEmbalaje, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelCategoriasLayout.setVerticalGroup(
+            panelCategoriasLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(btnFiltroTodos, 38, 38, 38)
+                .addComponent(btnFiltroFerreteria, 38, 38, 38)
+                .addComponent(btnFiltroElectronica, 38, 38, 38)
+                .addComponent(btnFiltroEPI, 38, 38, 38)
+                .addComponent(btnFiltroConsumibles, 38, 38, 38)
+                .addComponent(btnFiltroEmbalaje, 38, 38, 38))
+                .addGap(0, 0, 0)
+        );
+        javax.swing.GroupLayout panelBarraFiltrosLayout = new javax.swing.GroupLayout(panelBarraFiltros);
+        panelBarraFiltros.setLayout(panelBarraFiltrosLayout);
+        panelBarraFiltrosLayout.setHorizontalGroup(
+            panelBarraFiltrosLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelBarraFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelBusqueda, 0, 800, 32767)
+                .addComponent(panelCategorias, 0, 800, 32767))
+                .addGap(20, 20, 20)
+        );
+        panelBarraFiltrosLayout.setVerticalGroup(
+            panelBarraFiltrosLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(panelBusqueda, -2, -1, -2)
+                .addGap(16, 16, 16)
+                .addComponent(panelCategorias, -2, -1, -2)
+                .addGap(20, 20, 20)
+        );
         jScrollPane1.setViewportView(tblProductosStock);
-
+        javax.swing.GroupLayout panelInventarioLayout = new javax.swing.GroupLayout(panelInventario);
+        panelInventario.setLayout(panelInventarioLayout);
+        panelInventarioLayout.setHorizontalGroup(
+            panelInventarioLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(lblTablaProductos, 0, 800, 32767)
+                .addComponent(jScrollPane1, 0, 800, 32767))
+                .addGap(20, 20, 20)
+        );
+        panelInventarioLayout.setVerticalGroup(
+            panelInventarioLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTablaProductos, -2, -1, -2)
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, 430, 430, 430)
+                .addGap(20, 20, 20)
+        );
+        javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
+        panelContenido.setLayout(panelContenidoLayout);
+        panelContenidoLayout.setHorizontalGroup(
+            panelContenidoLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelCabecera, 0, 1024, 32767)
+                .addComponent(panelBarraFiltros, 0, 1024, 32767)
+                .addComponent(panelInventario, 0, 1024, 32767))
+                .addGap(28, 28, 28)
+        );
+        panelContenidoLayout.setVerticalGroup(
+            panelContenidoLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(panelCabecera, -2, -1, -2)
+                .addGap(22, 22, 22)
+                .addComponent(panelBarraFiltros, -2, -1, -2)
+                .addGap(22, 22, 22)
+                .addComponent(panelInventario, -2, -1, -2)
+                .addGap(28, 28, 28)
+        );
+        scrollContenido.setViewportView(panelContenido);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelSidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSubtituloStock)
-                                .addGap(38, 622, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblTituloStock)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAñadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(53, 53, 53))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelBarraFiltros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21))))))
+            layout.createSequentialGroup()
+                .addComponent(panelSidebar, 224, 224, 224)
+                .addComponent(scrollContenido, 0, 1080, 32767)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloStock)
-                    .addComponent(btnAñadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSubtituloStock)
-                .addGap(28, 28, 28)
-                .addComponent(panelBarraFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelSidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
+                .addComponent(panelSidebar, 0, 820, 32767)
+                .addComponent(scrollContenido, 0, 820, 32767)
         );
+        btnNavDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/dashboard.png")));
+        btnNavDashboard.setIconTextGap(10);
+        btnNavDashboard.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/mapa.png")));
+        btnNavMapa.setIconTextGap(10);
+        btnNavMapa.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/stock_activo.png")));
+        btnNavStock.setIconTextGap(10);
+        btnNavStock.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavEtiquetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/etiquetas.png")));
+        btnNavEtiquetas.setIconTextGap(10);
+        btnNavEtiquetas.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavTrazabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/trazabilidad.png")));
+        btnNavTrazabilidad.setIconTextGap(10);
+        btnNavTrazabilidad.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavAlertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/alertas.png")));
+        btnNavAlertas.setIconTextGap(10);
+        btnNavAlertas.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/equipo.png")));
+        btnNavEquipo.setIconTextGap(10);
+        btnNavEquipo.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/agenda.png")));
+        btnNavAgenda.setIconTextGap(10);
+        btnNavAgenda.setMargin(new java.awt.Insets(8, 10, 8, 10));
+        btnNavChat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/icons/chat.png")));
+        btnNavChat.setIconTextGap(10);
+        btnNavChat.setMargin(new java.awt.Insets(8, 10, 8, 10));
 
         pack();
+        setLocationRelativeTo(null);
+
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Reserva la acción del botón de navegación al mapa.
+     * El cambio de vista está pendiente de implementación.
+     *
+     * @param evt evento de acción del botón
+     */
     private void btnNavMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavMapaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNavMapaActionPerformed
 
+    /**
+     * Reserva la acción del botón de navegación al chat.
+     * El cambio de vista está pendiente de implementación.
+     *
+     * @param evt evento de acción del botón
+     */
     private void btnNavChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNavChatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNavChatActionPerformed
 
+    /**
+     * Reserva la búsqueda al confirmar un nombre o código de producto.
+     * El filtrado de la tabla está pendiente de implementación.
+     *
+     * @param evt evento de acción del campo de búsqueda de productos
+     */
     private void txtBuscarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarStockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarStockActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Abre el inventario como ventana independiente en el hilo de eventos de Swing.
+     *
+     * @param args argumentos de línea de comandos, que se ignoran
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -454,7 +819,7 @@ public class StockPanel extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -511,5 +876,18 @@ public class StockPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollTablaStock;
     private javax.swing.JTable tblProductosStock;
     private javax.swing.JTextField txtBuscarStock;
+    private javax.swing.JPanel panelBusqueda;
+    private javax.swing.JPanel panelCategorias;
+    private javax.swing.JLabel lblTablaProductos;
+    private javax.swing.JPanel panelInventario;
+    private javax.swing.JPanel panelMarca;
+    private javax.swing.JPanel panelNavAlertas;
+    private javax.swing.JPanel panelNavChat;
+    private javax.swing.JPanel panelDatosUsuario;
+    private javax.swing.JPanel panelUsuario;
+    private javax.swing.JLabel lblSeccion;
+    private javax.swing.JPanel panelCabecera;
+    private javax.swing.JPanel panelContenido;
+    private javax.swing.JScrollPane scrollContenido;
     // End of variables declaration//GEN-END:variables
 }

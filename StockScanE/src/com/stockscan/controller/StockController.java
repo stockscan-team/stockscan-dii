@@ -5,9 +5,16 @@
 package com.stockscan.controller;
 
 /**
+ * Clase reservada para coordinar la vista de existencias y el modelo de inventario.
+ * Las operaciones de inventario están pendientes de implementación.
  *
  * @author alvarolopez
  */
 public class StockController {
-    
+
+    /**
+     * Crea un controlador de stock sin dependencias configuradas.
+     */
+    public StockController() {
+    }
 }

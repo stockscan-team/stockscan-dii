@@ -5,9 +5,16 @@
 package com.stockscan.controller;
 
 /**
+ * Clase reservada para coordinar la vista del chat y su modelo.
+ * La gestión de conversaciones y mensajes está pendiente de implementación.
  *
  * @author alvarolopez
  */
 public class ChatController {
-    
+
+    /**
+     * Crea un controlador de chat sin dependencias configuradas.
+     */
+    public ChatController() {
+    }
 }

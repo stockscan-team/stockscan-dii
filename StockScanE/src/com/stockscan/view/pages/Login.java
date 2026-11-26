@@ -1,20 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.stockscan.view.pages;
 
+import com.stockscan.controller.FeedbackController;
+import com.stockscan.view.components.FeedbackStockScan;
+
 /**
+ * Ventana de acceso a StockScan.
+ * Presenta los campos de correo y contraseña
+ * y los controles de acceso y recuperación.
+ * La validación de credenciales está pendiente de integración.
  *
  * @author alvarolopez
+ * @serial exclude
  */
 public class Login extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Prepara el formulario de acceso y sus controles visuales.
+     *
+     * @throws java.awt.HeadlessException
+     * si el entorno no admite ventanas
      */
     public Login() {
         initComponents();
+        configurarEfectosVisuales();
+    }
+
+    /**
+     * Aplica reposo, hover, pulsación, deshabilitado y foco.
+     * Registra un receptor externo para las notificaciones.
+     * Conserva las acciones existentes de los botones.
+     */
+    private void configurarEfectosVisuales() {
+        FeedbackStockScan feedback = new FeedbackStockScan();
+
+        feedback.addStockScanListener(
+                new FeedbackController()
+        );
+
+        feedback.instalar(
+                btnIniciarSesion,
+                "Login.btnIniciarSesion",
+                null
+        );
+
+        feedback.instalar(
+                jButton1,
+                "Login.jButton1",
+                null
+        );
     }
 
     /**
@@ -25,6 +58,8 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        panelFondo = new javax.swing.JPanel();
+        panelMarca = new javax.swing.JPanel();
 
         jPanel1 = new javax.swing.JPanel();
         lblLogoTexto = new javax.swing.JLabel();
@@ -42,144 +77,158 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(18, 30, 43));
-
-        jPanel1.setBackground(new java.awt.Color(18, 30, 43));
-
-        lblLogoTexto.setFont(new java.awt.Font("Helvetica Neue", 1, 32)); // NOI18N
-        lblLogoTexto.setForeground(new java.awt.Color(255, 255, 255));
         lblLogoTexto.setText("StockScan");
-
-        lblLogoSubtitulo.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        lblLogoSubtitulo.setForeground(new java.awt.Color(174, 174, 178));
         lblLogoSubtitulo.setText("Sistema de gestión de almacenes");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/pages/Logo.png"))); // NOI18N
-
-        lblTituloLogin.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        lblTituloLogin.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/stockscan/view/pages/Logo.png")));
         lblTituloLogin.setText("Iniciar sesión");
-
-        lblEmail.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Correo electrónico");
 
         jPasswordField1.setText("jPasswordField1");
-
-        btnIniciarSesion.setBackground(new java.awt.Color(27, 79, 114));
-        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnIniciarSesion.setText("Iniciar sesión");
-        btnIniciarSesion.setBorderPainted(false);
-
-        txtEmail.setBackground(new java.awt.Color(245, 247, 250));
         txtEmail.setText("operario1@stockscan.io");
-
-        lblPassword.setFont(new java.awt.Font("Helvetica Neue", 1, 12)); // NOI18N
-        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Contraseña");
-
-        lblSubtituloLogin.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        lblSubtituloLogin.setForeground(new java.awt.Color(110, 110, 115));
         lblSubtituloLogin.setText("Introduce tus credenciales para acceder");
-
-        lblSeguridad.setFont(new java.awt.Font("Helvetica Neue", 0, 11)); // NOI18N
-        lblSeguridad.setForeground(new java.awt.Color(39, 174, 96));
         lblSeguridad.setText("🔒 Conexión segura y cifrada");
-
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("¿Olvidaste tu contraseña?");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        lblLogoTexto.setFont(new java.awt.Font("SansSerif", 1, 27));
+        lblLogoTexto.setForeground(new java.awt.Color(27, 43, 60));
+        lblLogoSubtitulo.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblLogoSubtitulo.setForeground(new java.awt.Color(103, 119, 137));
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13));
+        jLabel3.setForeground(new java.awt.Color(27, 43, 60));
+        lblTituloLogin.setFont(new java.awt.Font("SansSerif", 1, 27));
+        lblTituloLogin.setForeground(new java.awt.Color(27, 43, 60));
+        lblEmail.setFont(new java.awt.Font("SansSerif", 0, 13));
+        lblEmail.setForeground(new java.awt.Color(27, 43, 60));
+        jPasswordField1.setFont(new java.awt.Font("SansSerif", 0, 13));
+        jPasswordField1.setForeground(new java.awt.Color(27, 43, 60));
+        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setFont(new java.awt.Font("SansSerif", 1, 13));
+        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setBackground(new java.awt.Color(27, 79, 114));
+        btnIniciarSesion.setFocusPainted(true);
+        btnIniciarSesion.setBorderPainted(false);
+        btnIniciarSesion.setContentAreaFilled(true);
+        btnIniciarSesion.setOpaque(true);
+        txtEmail.setFont(new java.awt.Font("SansSerif", 0, 13));
+        txtEmail.setForeground(new java.awt.Color(27, 43, 60));
+        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
+        lblPassword.setFont(new java.awt.Font("SansSerif", 0, 13));
+        lblPassword.setForeground(new java.awt.Color(27, 43, 60));
+        lblSubtituloLogin.setFont(new java.awt.Font("SansSerif", 0, 13));
+        lblSubtituloLogin.setForeground(new java.awt.Color(103, 119, 137));
+        lblSeguridad.setFont(new java.awt.Font("SansSerif", 0, 11));
+        lblSeguridad.setForeground(new java.awt.Color(103, 119, 137));
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 13));
+        jButton1.setForeground(new java.awt.Color(27, 43, 60));
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFocusPainted(true);
         jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-
+        jButton1.setContentAreaFilled(true);
+        jButton1.setOpaque(true);
+        setTitle("StockScan SGA · jButton1");
+        setMinimumSize(new java.awt.Dimension(1080, 720));
+        panelMarca.setBackground(new java.awt.Color(255, 255, 255));
+        panelFondo.setBackground(new java.awt.Color(243, 246, 250));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 238), 1, true));
+        javax.swing.GroupLayout panelMarcaLayout = new javax.swing.GroupLayout(panelMarca);
+        panelMarca.setLayout(panelMarcaLayout);
+        panelMarcaLayout.setHorizontalGroup(
+            panelMarcaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabel3, 28, 28, 28)
+                .addGap(12, 12, 12)
+                .addComponent(lblLogoTexto, 0, 180, 32767)
+                .addGap(0, 0, 0)
+        );
+        panelMarcaLayout.setVerticalGroup(
+            panelMarcaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(panelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel3, 42, 42, 42)
+                .addComponent(lblLogoTexto, 42, 42, 42))
+                .addGap(0, 0, 0)
+        );
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEmail)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblPassword)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                        .addComponent(jPasswordField1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(416, 416, 416)
-                .addComponent(lblLogoTexto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(401, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSubtituloLogin)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblLogoSubtitulo)
-                            .addGap(382, 382, 382))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnIniciarSesion)
-                            .addGap(430, 430, 430))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblSeguridad)
-                            .addGap(413, 413, 413))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(402, 402, 402)))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(415, 415, 415)
-                .addComponent(lblTituloLogin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(470, 470, 470))
+                .addComponent(panelMarca, 0, 420, 32767)
+                .addComponent(lblLogoSubtitulo, 0, 420, 32767)
+                .addComponent(lblTituloLogin, 0, 420, 32767)
+                .addComponent(lblSubtituloLogin, 0, 420, 32767)
+                .addComponent(lblEmail, 0, 420, 32767)
+                .addComponent(txtEmail, 0, 420, 32767)
+                .addComponent(lblPassword, 0, 420, 32767)
+                .addComponent(jPasswordField1, 0, 420, 32767)
+                .addComponent(btnIniciarSesion, 0, 420, 32767)
+                .addComponent(jButton1, 0, 420, 32767)
+                .addComponent(lblSeguridad, 0, 420, 32767))
+                .addGap(30, 30, 30)
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblLogoTexto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblLogoSubtitulo)
+            jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(panelMarca, -2, -1, -2)
                 .addGap(18, 18, 18)
-                .addComponent(lblTituloLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSubtituloLogin)
-                .addGap(27, 27, 27)
-                .addComponent(lblEmail)
+                .addComponent(lblLogoSubtitulo, -2, -1, -2)
                 .addGap(18, 18, 18)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTituloLogin, -2, -1, -2)
                 .addGap(18, 18, 18)
-                .addComponent(btnIniciarSesion)
+                .addComponent(lblSubtituloLogin, -2, -1, -2)
                 .addGap(18, 18, 18)
-                .addComponent(lblSeguridad)
+                .addComponent(lblEmail, -2, -1, -2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addComponent(txtEmail, 44, 44, 44)
+                .addGap(18, 18, 18)
+                .addComponent(lblPassword, -2, -1, -2)
+                .addGap(18, 18, 18)
+                .addComponent(jPasswordField1, 44, 44, 44)
+                .addGap(18, 18, 18)
+                .addComponent(btnIniciarSesion, 44, 44, 44)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, 40, 40, 40)
+                .addGap(18, 18, 18)
+                .addComponent(lblSeguridad, -2, -1, -2)
+                .addGap(30, 30, 30)
         );
-
+        javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
+        panelFondo.setLayout(panelFondoLayout);
+        panelFondoLayout.setHorizontalGroup(
+            panelFondoLayout.createSequentialGroup()
+                .addGap(260, 260, 32767)
+                .addComponent(jPanel1, 490, 490, 490)
+                .addGap(260, 260, 32767)
+        );
+        panelFondoLayout.setVerticalGroup(
+            panelFondoLayout.createSequentialGroup()
+                .addGap(70, 70, 32767)
+                .addComponent(jPanel1, -2, -1, -2)
+                .addGap(70, 70, 32767)
+        );
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelFondo, 0, 1100, 32767)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelFondo, 0, 820, 32767)
         );
-
         pack();
+        setLocationRelativeTo(null);
+
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @param args the command line arguments
+     * Abre la pantalla de acceso como ventana independiente en el hilo de eventos de Swing.
+     *
+     * @param args argumentos de línea de comandos, que se ignoran
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -189,7 +238,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -227,5 +276,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblSubtituloLogin;
     private javax.swing.JLabel lblTituloLogin;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JPanel panelMarca;
+    private javax.swing.JPanel panelFondo;
     // End of variables declaration//GEN-END:variables
 }
